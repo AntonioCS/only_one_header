@@ -14,7 +14,7 @@ onlyoneheader [-h] [--output=<file>] [--remove_comments] [--no_separators] [--no
     --silent                    no info text
 ```
 
-**<path>**  Is the directory path of where the header files are. Header files with extension .h and .hpp will be consumed.
+`<path>` Is the directory path of where the header files are. Header files with extension .h and .hpp will be consumed.
 
 Use cmake to compile :
 
