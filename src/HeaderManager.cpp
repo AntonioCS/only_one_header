@@ -8,7 +8,7 @@ namespace OnlyOneHeader {
 
     double getMsCount(const std::chrono::steady_clock::time_point& begin)
     {        
-        return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() / 1000;
+        return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() / 1000.0;
     }
 
     void HeaderManager::process()
