@@ -25,7 +25,6 @@ static const char USAGE[] =
 )";
 
 int main(int argc, char** argv) {
-
     std::map<std::string, docopt::value> args = docopt::docopt(
         USAGE,
         { argv + 1, argv + argc },
@@ -47,5 +46,7 @@ int main(int argc, char** argv) {
     headerManager.setOptionSilentState(args["--silent"].asBool());
 
     headerManager.process();
-    headerManager.output(args["--output"].asString());
+
+    const auto output_file_name{ args["--output"].isString() ? args["--output"].asString() : "all_in_one.h" };
+    headerManager.output(output_file_name);
 }
