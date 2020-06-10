@@ -25,12 +25,7 @@ namespace OnlyOneHeader {
 
     void HeaderManager::output(const std::string& output_file)
     {
-        if (!output_file.empty()) m_output_file = output_file;
-        output();
-    }
-
-    void HeaderManager::output()
-    {
+        m_output_file = output_file;
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
         std::fstream output{m_output_file, std::ios::out};
 
@@ -89,14 +84,16 @@ namespace OnlyOneHeader {
 
     void HeaderManager::removeUnIncludedFiles()
     {
-        std::vector<HeaderFile> tmp;
+        std::vector<HeaderFile> included_files;
         for (const auto& hf : m_all_hf) {
             if (!hf.hasLocalIncludes()) {
                 bool was_not_included{true};
 
+                //since this file doesn't include any other local file
+                //I'm looping all the other include files and checking them to see if they include this file
                 for (const auto& hf2 : m_all_hf) {
                     if (hf2.isInLocalIncludes(hf.filename())) {
-                        tmp.push_back(hf);
+                        included_files.push_back(hf);
                         was_not_included = false;
                         break;
                     }
@@ -107,11 +104,11 @@ namespace OnlyOneHeader {
                 }
             }
             else {
-                tmp.push_back(hf);
+                included_files.push_back(hf);
             }
         }
 
-        m_all_hf = tmp;
+        m_all_hf = included_files;
     }
 
     void HeaderManager::grabAllGlobalIncludesFromHeaderFile(const HeaderFile& hf)

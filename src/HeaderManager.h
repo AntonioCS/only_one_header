@@ -29,7 +29,6 @@ namespace OnlyOneHeader {
 
         void process();
         void output(const std::string& output_file);
-        void output();
 
         void setOptionAddSeparatorState(bool state) { m_options.add_separators = state; }
         void setOptionAddTimestampState(bool state) { m_options.add_timestamp = state; }
